@@ -86,11 +86,20 @@ void PrintList(List *list) {
 Node Read(char *message)
 {
     Node *temp = AllocNode();
+    int n;
 
     printf("%sするデータを入力してください．\n",message);
 
-    printf("名	  前:");	scanf("%s", temp->name);
-    printf("電話番号:");	scanf("%s", temp->tel);
+    printf("名	  前:");	n = scanf("%s", temp->name);
+    if (n == EOF) {
+        fprintf(stderr, "Input Error.\n");
+        exit(1);
+    }
+    printf("電話番号:");	n = scanf("%s", temp->tel);
+    if (n == EOF) {
+        fprintf(stderr, "Input Error.\n");
+        exit(1);
+    }
 
     return (*temp);
 }
