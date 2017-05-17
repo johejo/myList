@@ -22,58 +22,77 @@ void InitList(List *list)
 
 void InsertNode(List *list, char *name, char *tel)
 {
-    Node *incert = AllocNode();
-    strncpy(incert->name, name, NAME_LEN);
-    strncpy(incert->tel, tel, TEL_LEN);
+    Node *target = AllocNode();
+    setInfo(target, name, tel);
 
-    incert->next = list->head;
-    list->head = incert;
+    target->next = list->head;
+    list->head = target;
     list->tail->next = NULL;
-    (list->length)++;
+    increaseLength(list);
 }
 
 void AppendNode(List *list, char *name, char *tel)
 {
+    Node *target= AllocNode();
+    setInfo(list->tail, name, tel);
 
+    list->tail->next = target;
+    list->tail = target;
+    setNULLToNext(list->tail);
+    increaseLength(list);
 }
 
 void DeleteNode(List *list)
 {
-
+    Node *target;
+    target = list->head;
+    list->head = target->next;
+    setNULLToNext(list->tail);
+    free(target);
+    reduceLength(list);
 }
 
 void RemoveNode(List *list)
 {
+    Node *target, *beforeTail;
+    beforeTail = searchBeforeTail(list);
 
-
+    target = beforeTail->next;
+    beforeTail->next = list->tail;
+    setNULLToNext(list->tail);
+    reduceLength(list);
+    free(target);
 }
 
 void ClearList(List *list)
 {
-    free(list);
+    while(list->head != NULL){
+        DeleteNode(list);
+    }
+    InitList(list);
 }
 
 void PrintList(List *list) {
-    Node *current;
-    current = list->head;
+    Node *target;
+    target = list->head;
     int i;
     for(i = 0; i < (list->length); i++){
-        printf("name:%s\ttel:%s\n", current->name, current->tel);
-        current = current->next;
+        printf("name:%s\ttel:%s\n", target->name, target->tel);
+        target = target->next;
     }
 }
 
 /*---データの入力---*/
 Node Read(char *message)
 {
-    Node	temp;
+    Node *temp = AllocNode();
 
     printf("%sするデータを入力してください．\n",message);
 
-    printf("名	  前:");	scanf("%s", temp.name);
-    printf("電話番号:");	scanf("%s", temp.tel);
+    printf("名	  前:");	scanf("%s", temp->name);
+    printf("電話番号:");	scanf("%s", temp->tel);
 
-    return (temp);
+    return (*temp);
 }
 
 /*---メニュー選択---*/
@@ -89,4 +108,39 @@ Menu SelectMenu(void)
         scanf("%d", &ch);
     } while (ch < Term ||  ch > Print);
     return ((Menu)ch);
+}
+
+void setInfo(Node *node, char *name, char *tel){
+    setName(node, name);
+    setTel(node, tel);
+}
+
+void setName(Node *node, char *name){
+    strncpy(node->name, name, NAME_LEN);
+}
+
+void setTel(Node *node, char *tel){
+    strncpy(node->tel, tel, TEL_LEN);
+}
+
+void setNULLToNext(Node *node){
+    node->next = NULL;
+}
+
+void increaseLength(List *list){
+    (list->length)++;
+}
+
+void reduceLength(List *list){
+    (list->length)--;
+}
+
+Node *searchBeforeTail(List *list){
+    int i;
+    Node *beforeTail;
+    beforeTail = list->head;
+    for(i = 0; i < (list->length) - 1; i++) {
+        beforeTail = beforeTail->next;
+    }
+    return beforeTail;
 }

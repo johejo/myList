@@ -1,3 +1,6 @@
+#ifndef MY_LIST_DEFS
+#define MY_LIST_DEFS
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -37,3 +40,13 @@ void PrintList(List *list);
 Node Read(char *message);
 
 Menu SelectMenu(void);
+
+void setInfo(Node *node, char *name, char *tel);
+void setName(Node *node, char *name);
+void setTel(Node *node, char *tel);
+void setNULLToNext(Node *node);
+void increaseLength(List *list);
+void reduceLength(List *list);
+Node *searchBeforeTail(List *list);
+
+#endif
