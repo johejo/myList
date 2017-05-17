@@ -10,6 +10,7 @@ Node *AllocNode(void)
 void InitList(List *list)
 {
     list->head = list->tail = AllocNode();
+    list->length = 0;
 }
 
 /*
@@ -18,6 +19,49 @@ void InitList(List *list)
  * 		DeleteNode	RemoveNode
  * 		ClearList	PrintList
  */
+
+void InsertNode(List *list, char *name, char *tel)
+{
+    Node *incert = AllocNode();
+    strncpy(incert->name, name, NAME_LEN);
+    strncpy(incert->tel, tel, TEL_LEN);
+
+    incert->next = list->head;
+    list->head = incert;
+    list->tail->next = NULL;
+    (list->length)++;
+}
+
+void AppendNode(List *list, char *name, char *tel)
+{
+
+}
+
+void DeleteNode(List *list)
+{
+
+}
+
+void RemoveNode(List *list)
+{
+
+
+}
+
+void ClearList(List *list)
+{
+    free(list);
+}
+
+void PrintList(List *list) {
+    Node *current;
+    current = list->head;
+    int i;
+    for(i = 0; i < (list->length); i++){
+        printf("name:%s\ttel:%s\n", current->name, current->tel);
+        current = current->next;
+    }
+}
 
 /*---データの入力---*/
 Node Read(char *message)
