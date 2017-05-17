@@ -98,15 +98,19 @@ Node Read(char *message)
 /*---メニュー選択---*/
 Menu SelectMenu(void)
 {
-    int	ch;
+    int	ch, n;
 
     do {
         puts("(1) 先頭にノードを挿入	(2) 末尾にノードを挿入");
         puts("(3) 先頭のノードを削除	(4) 末尾のノードを削除");
         puts("(5) 全てのノードを削除	(6) 全てのノードを表示");
         puts("(0) 終			  了");
-        scanf("%d", &ch);
-    } while (ch < Term ||  ch > Print);
+        n = scanf("%d", &ch);
+        if (n == EOF) {
+            fprintf(stderr, "Input Error.\n");
+            exit(1);
+        }
+    } while (ch < Term || ch > Print);
     return ((Menu)ch);
 }
 
