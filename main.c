@@ -19,6 +19,8 @@ int main(void)
             case Remove: RemoveNode(&list);				   break;
             case Clear : ClearList(&list);				   break;
             case Print : PrintList(&list);				   break;
+            case Search : x = Read("検索する名前");
+                SearchList(&list, x.name);          break;
         }
     }while (menu != Term);
 

@@ -82,6 +82,19 @@ void PrintList(List *list) {
     }
 }
 
+void SearchList(List *list, char *name){
+    Node *target;
+    target = list->head;
+    int i, n = 0;
+    char c;
+    for(i = 0; i < (list->length); i++){
+        if (!strncmp(target->name, name, NAME_LEN)) {
+            printf("HIT name : %s\n\n", name);
+        }
+        target = target->next;
+    }
+}
+
 /*---データの入力---*/
 Node Read(char *message)
 {
@@ -113,13 +126,14 @@ Menu SelectMenu(void)
         puts("(1) 先頭にノードを挿入	(2) 末尾にノードを挿入");
         puts("(3) 先頭のノードを削除	(4) 末尾のノードを削除");
         puts("(5) 全てのノードを削除	(6) 全てのノードを表示");
+        puts("(7) 検索");
         puts("(0) 終			  了");
         n = scanf("%d", &ch);
         if (n == EOF) {
             fprintf(stderr, "Input Error.\n");
             exit(1);
         }
-    } while (ch < Term || ch > Print);
+    } while (ch < Term || ch > Search);
     return ((Menu)ch);
 }
 

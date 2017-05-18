@@ -10,7 +10,7 @@
 
 /*---メニュー---*/
 typedef enum {
-    Term, Insert, Append, Delete, Remove, Clear, Print
+    Term, Insert, Append, Delete, Remove, Clear, Print, Search
 } Menu;
 
 /*---ノード---*/
@@ -36,6 +36,7 @@ void DeleteNode(List *list);
 void RemoveNode(List *list);
 void ClearList(List *list);
 void PrintList(List *list);
+void SearchList(List *list, char *name);
 
 Node Read(char *message);
 
