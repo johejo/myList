@@ -27,7 +27,7 @@ void InsertNode(List *list, char *name, char *tel)
 
     target->next = list->head;
     list->head = target;
-    list->tail->next = NULL;
+    setNULLToNext(list->tail);
     increaseLength(list);
 }
 
